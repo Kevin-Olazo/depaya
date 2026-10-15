@@ -1,0 +1,270 @@
+### DepaYa - peticiones de prueba (IntelliJ HTTP Client). Ejecutar de arriba hacia abajo.
+### Todo entra por el gateway. Clave de los usuarios de ejemplo: 123456
+
+@host = http://localhost:8080
+
+###############################################################################
+# 1. LOGIN Y REGISTRO (publico)
+###############################################################################
+
+### Login ADMIN
+POST {{host}}/api/auth/login
+Content-Type: application/json
+
+{ "correo": "admin@depaya.com", "password": "123456" }
+
+> {% client.global.set("admin", response.body.token); %}
+
+### Login PROPIETARIO (Alonso Vargas, id 1)
+POST {{host}}/api/auth/login
+Content-Type: application/json
+
+{ "correo": "avargas@gmail.com", "password": "123456" }
+
+> {% client.global.set("prop", response.body.token); %}
+
+### Login INQUILINO (Diego Rojas, id 4)
+POST {{host}}/api/auth/login
+Content-Type: application/json
+
+{ "correo": "drojas@gmail.com", "password": "123456" }
+
+> {% client.global.set("inq", response.body.token); %}
+
+### Registro publico (INQUILINO o PROPIETARIO). Devuelve token. Cambia correo y documento si ya existen.
+POST {{host}}/api/auth/registro
+Content-Type: application/json
+
+{
+  "nombre": "Lucia", "apellido": "Paredes", "tipoDocumento": "DNI", "numeroDocumento": "71234567",
+  "correo": "lparedes@gmail.com", "telefono": "987001122", "password": "123456", "rol": "INQUILINO"
+}
+
+### Mis datos (token)
+GET {{host}}/api/auth/me
+Authorization: Bearer {{inq}}
+
+###############################################################################
+# 2. CATALOGO PUBLICO (sin token): busqueda, filtros y paginacion
+###############################################################################
+
+### Primera pagina
+GET {{host}}/api/departamentos?page=0&size=5
+
+### Busqueda por texto + distrito + precio, ordenado por precio
+GET {{host}}/api/departamentos?q=depa&distrito=Miraflores&precioMax=500&sort=precioNoche,asc
+
+### Filtros: huespedes, habitaciones, piscina, wifi, mascotas, categoria
+GET {{host}}/api/departamentos?huespedes=4&habitaciones=2&wifi=true&categoria=Familiar
+
+### Solo los libres en un rango de fechas
+GET {{host}}/api/departamentos?desde=2027-01-10&hasta=2027-01-14
+
+### Detalle
+GET {{host}}/api/departamentos/1
+
+### Para llenar los filtros del frontend
+GET {{host}}/api/departamentos/distritos
+
+###
+GET {{host}}/api/departamentos/categorias
+
+### Fechas ocupadas de un departamento (para el calendario)
+GET {{host}}/api/reservas/ocupadas?idDepartamento=1
+
+###############################################################################
+# 3. INQUILINO (o PROPIETARIO) reserva y paga
+###############################################################################
+
+### Reservar el departamento 2 (queda PENDIENTE)
+POST {{host}}/api/reservas
+Authorization: Bearer {{inq}}
+Content-Type: application/json
+
+{ "idDepartamento": 2, "fechaIngreso": "2027-01-10", "fechaSalida": "2027-01-13", "cantidadHuespedes": 2 }
+
+> {% client.global.set("reservaId", response.body.id); %}
+
+### Mis reservas (filtros: estado, q, desde, hasta)
+GET {{host}}/api/reservas/mis-reservas?page=0&size=10
+Authorization: Bearer {{inq}}
+
+### Paso 1 del pago: crea el pago PROCESANDO (el monto sale de la reserva)
+POST {{host}}/api/pagos
+Authorization: Bearer {{inq}}
+Content-Type: application/json
+
+{ "idReserva": {{reservaId}}, "metodo": "YAPE" }
+
+> {% client.global.set("pagoId", response.body.id); %}
+
+### Paso 2: confirmar el pago (la reserva pasa a CONFIRMADA)
+PUT {{host}}/api/pagos/{{pagoId}}/confirmar
+Authorization: Bearer {{inq}}
+
+### Mis pagos
+GET {{host}}/api/pagos/mis-pagos
+Authorization: Bearer {{inq}}
+
+### Cancelar la reserva (con reembolso si falta 1 dia o mas). Cuerpo opcional.
+PUT {{host}}/api/reservas/{{reservaId}}/cancelar
+Authorization: Bearer {{inq}}
+Content-Type: application/json
+
+{ "metodoReembolso": "YAPE" }
+
+###############################################################################
+# 4. PROPIETARIO
+###############################################################################
+
+### Mis departamentos (cualquier estado)
+GET {{host}}/api/departamentos/mis-departamentos
+Authorization: Bearer {{prop}}
+
+### Publicar un departamento
+POST {{host}}/api/departamentos
+Authorization: Bearer {{prop}}
+Content-Type: application/json
+
+{
+  "titulo": "Depa nuevo de prueba", "descripcion": "Publicado desde requests.http",
+  "distrito": "Miraflores", "direccion": "Av. Larco 123", "categoria": "Moderno",
+  "latitud": -12.12, "longitud": -77.03, "precioNoche": 210.50,
+  "capacidadPersonas": 3, "habitaciones": 2, "banos": 1,
+  "imagenUrl": "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=800&q=80",
+  "tienePiscina": false, "tieneWifi": true, "admiteMascotas": true
+}
+
+> {% client.global.set("depaNuevo", response.body.id); %}
+
+### Editar (PUT) el que acabo de crear
+PUT {{host}}/api/departamentos/{{depaNuevo}}
+Authorization: Bearer {{prop}}
+Content-Type: application/json
+
+{
+  "titulo": "Depa nuevo (editado)", "descripcion": "Editado", "distrito": "Miraflores",
+  "direccion": "Av. Larco 123", "categoria": "Moderno", "precioNoche": 230.00,
+  "capacidadPersonas": 3, "habitaciones": 2, "banos": 1,
+  "imagenUrl": "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=800&q=80",
+  "tienePiscina": false, "tieneWifi": true, "admiteMascotas": true
+}
+
+### Cambiar estado (DISPONIBLE, OCUPADO, MANTENIMIENTO, INACTIVO)
+PUT {{host}}/api/departamentos/{{depaNuevo}}/estado
+Authorization: Bearer {{prop}}
+Content-Type: application/json
+
+{ "estado": "MANTENIMIENTO" }
+
+### Eliminar
+DELETE {{host}}/api/departamentos/{{depaNuevo}}
+Authorization: Bearer {{prop}}
+
+### Desactivar TODAS mis publicaciones (activo=false) o reactivarlas (activo=true)
+PUT {{host}}/api/departamentos/propietario/1/activacion
+Authorization: Bearer {{prop}}
+Content-Type: application/json
+
+{ "activo": true }
+
+### Reservas hechas a mis departamentos + resumen
+GET {{host}}/api/reservas/mis-alquileres
+Authorization: Bearer {{prop}}
+
+###
+GET {{host}}/api/reservas/mis-alquileres/resumen
+Authorization: Bearer {{prop}}
+
+### Mis ingresos: lista, y bruto / comision 10% / neto 90%
+GET {{host}}/api/pagos/mis-ingresos
+Authorization: Bearer {{prop}}
+
+###
+GET {{host}}/api/pagos/mis-ingresos/resumen
+Authorization: Bearer {{prop}}
+
+### Desactivar mi propia cuenta (cuidado: luego no podra entrar hasta que el admin la reactive)
+# PUT {{host}}/api/usuarios/me/desactivar
+# Authorization: Bearer {{prop}}
+
+###############################################################################
+# 5. ADMIN: gestion, filtros, dashboard y reportes
+###############################################################################
+
+### Usuarios (filtros: q, rol, activo)
+GET {{host}}/api/usuarios?rol=PROPIETARIO&page=0&size=10
+Authorization: Bearer {{admin}}
+
+### Crear usuario (cualquier rol)
+POST {{host}}/api/usuarios
+Authorization: Bearer {{admin}}
+Content-Type: application/json
+
+{
+  "nombre": "Otro", "apellido": "Admin", "tipoDocumento": "DNI", "numeroDocumento": "70000002",
+  "correo": "otro.admin@depaya.com", "telefono": "900000002", "password": "123456", "rol": "ADMIN"
+}
+
+### Bloquear publicaciones de un propietario / desactivar o reactivar una cuenta
+PUT {{host}}/api/usuarios/3/estado
+Authorization: Bearer {{admin}}
+Content-Type: application/json
+
+{ "publicacionesHabilitadas": false }
+
+### Departamentos (todos, con estado y propietario)
+GET {{host}}/api/departamentos/admin?estado=DISPONIBLE&propietarioId=1
+Authorization: Bearer {{admin}}
+
+### Todas las reservas (filtros: q, estado, estadoReembolso, distrito, desde, hasta ...)
+GET {{host}}/api/reservas?estado=CONFIRMADA&sort=fechaIngreso,asc
+Authorization: Bearer {{admin}}
+
+### Todos los pagos (filtros: q, estado, metodo, desde, hasta ...)
+GET {{host}}/api/pagos?estado=COMPLETADO
+Authorization: Bearer {{admin}}
+
+### Reembolsos pendientes de confirmar
+GET {{host}}/api/pagos?estado=REEMBOLSO_PENDIENTE
+Authorization: Bearer {{admin}}
+
+### Confirmar un reembolso (cambia el id por uno pendiente)
+PUT {{host}}/api/pagos/{{pagoId}}/reembolso/confirmar
+Authorization: Bearer {{admin}}
+
+### Rechazar un reembolso (el pago vuelve a COMPLETADO)
+PUT {{host}}/api/pagos/{{pagoId}}/reembolso/rechazar
+Authorization: Bearer {{admin}}
+
+### DASHBOARD: un resumen por servicio
+GET {{host}}/api/usuarios/resumen
+Authorization: Bearer {{admin}}
+
+###
+GET {{host}}/api/departamentos/resumen
+Authorization: Bearer {{admin}}
+
+###
+GET {{host}}/api/reservas/resumen
+Authorization: Bearer {{admin}}
+
+###
+GET {{host}}/api/pagos/resumen
+Authorization: Bearer {{admin}}
+
+### REPORTES CSV (mismos filtros que los listados)
+GET {{host}}/api/reservas/exportar?desde=2026-01-01&hasta=2027-12-31
+Authorization: Bearer {{admin}}
+
+###
+GET {{host}}/api/pagos/exportar?estado=COMPLETADO
+Authorization: Bearer {{admin}}
+
+###
+GET {{host}}/api/usuarios/exportar
+Authorization: Bearer {{admin}}
+
+###
+GET {{host}}/api/departamentos/exportar
+Authorization: Bearer {{admin}}
