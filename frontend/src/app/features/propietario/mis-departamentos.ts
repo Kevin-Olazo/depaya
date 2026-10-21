@@ -43,7 +43,8 @@ import { Vacio } from '../../shared/vacio';
   template: `
     <header class="encabezado-pagina">
       <div>
-        <h1>Mis departamentos</h1>
+        <p class="eyebrow">Panel propietario</p>
+        <h1>Mis <em>departamentos</em></h1>
         <p>Publica, edita y gestiona el estado de tus departamentos. Solo los <strong>Disponibles</strong> aparecen en el catálogo y se pueden reservar.</p>
       </div>
       <div class="fila">

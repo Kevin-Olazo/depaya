@@ -53,6 +53,7 @@ import { Vacio } from '../../shared/vacio';
   template: `
     <header class="encabezado-pagina">
       <div>
+        <p class="eyebrow">Administración</p>
         <h1>Usuarios</h1>
         <p>Crea, edita y administra cuentas. Desactiva una cuenta para impedir el acceso o bloquea solo las publicaciones de un propietario.</p>
       </div>

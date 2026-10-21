@@ -53,7 +53,8 @@ function validarDocumento(grupo: AbstractControl): ValidationErrors | null {
     <div class="contenedor pagina">
       <form class="tarjeta formulario caja" [formGroup]="form" (ngSubmit)="registrar()" novalidate>
         <div>
-          <h1>Crea tu cuenta</h1>
+          <p class="eyebrow">Únete a DepaYa</p>
+          <h1>Crea tu <em>cuenta</em></h1>
           <p class="apagado">Es gratis y toma menos de un minuto. Entrarás directo al terminar.</p>
         </div>
 
@@ -100,8 +101,8 @@ function validarDocumento(grupo: AbstractControl): ValidationErrors | null {
     </div>
   `,
   styles: `
-    .caja { width: min(100%, 680px); margin-inline: auto; padding: clamp(20px, 4vw, 36px); }
-    h1 { font-size: 1.7rem; font-weight: 750; }
+    .caja { width: min(100%, 700px); margin-inline: auto; padding: clamp(22px, 4vw, 40px); border-radius: 18px; box-shadow: 0 15px 45px rgb(38 61 43 / 6%); }
+    h1 { font-size: 1.9rem; font-weight: 800; letter-spacing: -0.045em; margin-top: 12px; }
     .pie-form { text-align: center; color: var(--dy-apagado); }
   `,
 })

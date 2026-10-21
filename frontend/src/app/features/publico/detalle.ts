@@ -37,8 +37,9 @@ import { Vacio } from '../../shared/vacio';
 
         <header class="cabecera-depa">
           <div>
+            <p class="eyebrow">{{ d.categoria }}</p>
             <h1>{{ d.titulo }}</h1>
-            <p class="ubicacion"><i class="pi pi-map-marker" aria-hidden="true"></i> {{ d.direccion }}, {{ d.distrito }} · <span class="categoria">{{ d.categoria }}</span></p>
+            <p class="ubicacion"><i class="pi pi-map-marker" aria-hidden="true"></i> {{ d.direccion }}, {{ d.distrito }}</p>
           </div>
           <div class="fila">
             @if (d.estado !== 'DISPONIBLE') {
@@ -166,48 +167,47 @@ import { Vacio } from '../../shared/vacio';
   `,
   styles: `
     .migas { display: flex; gap: 8px; align-items: center; color: var(--dy-apagado); font-size: 0.85rem; }
-    .migas a:hover { color: var(--dy-coral); text-decoration: underline; }
+    .migas a:hover { color: var(--dy-primario); text-decoration: underline; }
     .cabecera-depa { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
-    .cabecera-depa h1 { font-size: clamp(1.5rem, 3vw, 2.15rem); font-weight: 780; }
-    .ubicacion { color: var(--dy-apagado); margin-top: 6px; display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
-    .categoria { background: #fff1f3; color: #c0134f; font-weight: 650; font-size: 0.78rem; padding: 2px 10px; border-radius: 999px; }
-    .foto { border-radius: 24px; overflow: hidden; background: #e5e7eb; box-shadow: var(--dy-sombra); line-height: 0; }
+    .cabecera-depa h1 { font-size: clamp(1.7rem, 3.2vw, 2.4rem); font-weight: 800; letter-spacing: -0.04em; margin: 12px 0 8px; }
+    .ubicacion { color: var(--dy-apagado); display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+    .foto { border-radius: 18px; overflow: hidden; background: #e8ebe4; line-height: 0; }
     :host ::ng-deep .foto p-image, :host ::ng-deep .foto .p-image { display: block; width: 100%; }
     :host ::ng-deep .foto-img { width: 100%; height: clamp(260px, 42vw, 500px); object-fit: cover; }
     .columnas { display: grid; grid-template-columns: minmax(0, 1fr) 390px; gap: 26px; align-items: start; }
     .principal { display: grid; gap: 18px; min-width: 0; }
     .datos { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 14px; }
     .dato { display: grid; gap: 2px; justify-items: start; }
-    .dato i { color: var(--dy-coral); font-size: 1.2rem; margin-bottom: 4px; }
-    .dato strong { font-size: 1.25rem; }
+    .dato i { color: var(--dy-salvia); font-size: 1.2rem; margin-bottom: 4px; }
+    .dato strong { font-family: var(--dy-fuente-titulos); font-size: 1.25rem; font-weight: 800; color: #274a36; }
     .dato span { color: var(--dy-apagado); font-size: 0.85rem; }
-    .descripcion { margin-top: 10px; line-height: 1.7; color: var(--dy-tinta-suave); white-space: pre-line; }
+    .descripcion { margin-top: 10px; line-height: 1.75; color: var(--dy-tinta-suave); white-space: pre-line; }
     .anfitrion { display: flex; gap: 12px; align-items: center; margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--dy-borde); }
-    .avatar { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; background: var(--dy-coral); color: #fff; font-weight: 700; flex: none; }
+    .avatar { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; background: #dce8d7; color: #315440; font-weight: 800; flex: none; }
     .comodidades { list-style: none; margin: 14px 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 12px; }
-    .comodidades li { display: flex; gap: 10px; align-items: center; font-weight: 600; }
-    .comodidades li i { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 10px; background: #f0fdf4; color: #15803d; }
+    .comodidades li { display: flex; gap: 10px; align-items: center; font-weight: 600; color: #34483a; }
+    .comodidades li i { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 10px; background: #e9f2e8; color: #3a7d4f; }
     .comodidades li.no { color: var(--dy-apagado); text-decoration: line-through; font-weight: 500; }
-    .comodidades li.no i { background: #f3f4f6; color: #9ca3af; }
+    .comodidades li.no i { background: #f0f2ee; color: #a3ada5; }
     .tarjeta h2 { margin-bottom: 4px; }
     .reserva { position: sticky; top: calc(var(--dy-cabecera) + 16px); display: grid; gap: 14px; box-shadow: var(--dy-sombra-fuerte); }
-    .precio strong { font-size: 1.7rem; }
+    .precio strong { font-family: var(--dy-fuente-titulos); font-size: 1.75rem; font-weight: 800; color: #224332; letter-spacing: -0.03em; }
     .precio span { color: var(--dy-apagado); }
     .calendario { display: grid; gap: 8px; }
     .calendario.apagado-total { opacity: 0.55; pointer-events: none; }
     :host ::ng-deep .calendario .p-datepicker-inline { width: 100%; border: 1px solid var(--dy-borde); border-radius: 14px; padding: 6px; }
     .dia { display: inline-grid; place-items: center; width: 100%; height: 100%; }
-    .dia.ocupado { color: #b42318; text-decoration: line-through; background: #fef2f2; border-radius: 50%; }
+    .dia.ocupado { color: #a8544c; text-decoration: line-through; background: #f7e8e5; border-radius: 50%; }
     .leyenda { list-style: none; margin: 0; padding: 0; display: flex; gap: 14px; flex-wrap: wrap; font-size: 0.78rem; color: var(--dy-apagado); }
     .leyenda li { display: flex; gap: 6px; align-items: center; }
-    .muestra { width: 12px; height: 12px; border-radius: 50%; display: inline-block; border: 1px solid #d1d5db; }
+    .muestra { width: 12px; height: 12px; border-radius: 50%; display: inline-block; border: 1px solid #cfd7d0; }
     .muestra.elegido { background: var(--p-primary-color); border-color: var(--p-primary-color); }
-    .muestra.ocupado { background: #fecaca; border-color: #fca5a5; }
+    .muestra.ocupado { background: #f0c9c4; border-color: #e6aea8; }
     .resumen { margin: 0; display: grid; gap: 6px; }
     .resumen div { display: flex; justify-content: space-between; gap: 12px; }
     .resumen dt { color: var(--dy-tinta-suave); }
     .resumen dd { margin: 0; }
-    .resumen .total { border-top: 1px solid var(--dy-borde); padding-top: 8px; font-weight: 750; font-size: 1.05rem; }
+    .resumen .total { border-top: 1px solid var(--dy-borde); padding-top: 8px; font-family: var(--dy-fuente-titulos); font-weight: 800; font-size: 1.05rem; }
     .resumen .total dt { color: var(--dy-tinta); }
     .centro { text-align: center; }
     .proximas { border-top: 1px solid var(--dy-borde); padding-top: 12px; }

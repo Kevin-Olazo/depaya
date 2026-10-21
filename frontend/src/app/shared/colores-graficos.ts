@@ -1,27 +1,28 @@
-/** Paleta de los gráficos (coral de marca + tonos que se distinguen entre sí y con buen contraste sobre blanco). */
+// Paleta de los gráficos: verdes de marca más acentos cálidos y fríos que se distinguen entre sí.
 export const COLORES = {
-  coral: '#e31c5f',
-  azul: '#2563eb',
-  verde: '#15803d',
-  ambar: '#d97706',
-  violeta: '#7c3aed',
-  turquesa: '#0f766e',
-  gris: '#64748b',
+  marca: '#1d4a3b',
+  verde: '#4e805d',
+  salvia: '#789c74',
+  ambar: '#d0a24f',
+  terracota: '#bd665e',
+  azul: '#5b8aa3',
+  violeta: '#8d7eb0',
+  gris: '#8a958c',
 };
 
-export const SERIE = [COLORES.coral, COLORES.azul, COLORES.verde, COLORES.ambar, COLORES.violeta, COLORES.turquesa, COLORES.gris];
+export const SERIE = [COLORES.marca, COLORES.salvia, COLORES.ambar, COLORES.azul, COLORES.terracota, COLORES.violeta, COLORES.gris];
 
 export const COLOR_ESTADO: Record<string, string> = {
   // reservas
   PENDIENTE: COLORES.ambar,
   CONFIRMADA: COLORES.verde,
-  CANCELADA: '#dc2626',
+  CANCELADA: COLORES.terracota,
   // pagos
   PROCESANDO: COLORES.azul,
   COMPLETADO: COLORES.verde,
   REEMBOLSO_PENDIENTE: COLORES.ambar,
   REEMBOLSADO: COLORES.gris,
-  CANCELADO: '#dc2626',
+  CANCELADO: COLORES.terracota,
   // departamentos
   DISPONIBLE: COLORES.verde,
   OCUPADO: COLORES.ambar,
@@ -30,14 +31,14 @@ export const COLOR_ESTADO: Record<string, string> = {
   // roles
   ADMIN: COLORES.violeta,
   PROPIETARIO: COLORES.azul,
-  INQUILINO: COLORES.coral,
+  INQUILINO: COLORES.marca,
 };
 
 export const OPCIONES_BASE = {
   responsive: true,
   maintainAspectRatio: false,
   plugins: {
-    legend: { position: 'bottom' as const, labels: { usePointStyle: true, boxWidth: 8, padding: 14, font: { size: 12 } } },
+    legend: { position: 'bottom' as const, labels: { usePointStyle: true, boxWidth: 8, padding: 14, font: { size: 12, family: 'DM Sans' } } },
   },
 };
 
@@ -45,12 +46,12 @@ export const OPCIONES_EJES = {
   ...OPCIONES_BASE,
   plugins: { legend: { display: false } },
   scales: {
-    x: { grid: { display: false }, ticks: { font: { size: 11 } } },
-    y: { beginAtZero: true, grid: { color: '#eef0f3' }, ticks: { precision: 0, font: { size: 11 } } },
+    x: { grid: { display: false }, ticks: { font: { size: 11, family: 'DM Sans' } } },
+    y: { beginAtZero: true, grid: { color: '#eef0ea' }, ticks: { precision: 0, font: { size: 11, family: 'DM Sans' } } },
   },
 };
 
-/** "2026-10" -> "oct 2026" */
+// "2026-10" -> "oct 2026"
 export function etiquetaMes(mes: string): string {
   const [a, m] = mes.split('-').map(Number);
   const nombres = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'];

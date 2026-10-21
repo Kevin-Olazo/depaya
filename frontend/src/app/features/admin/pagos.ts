@@ -29,6 +29,7 @@ import { Vacio } from '../../shared/vacio';
   template: `
     <header class="encabezado-pagina">
       <div>
+        <p class="eyebrow">Administración</p>
         <h1>Pagos</h1>
         <p>Todos los pagos de la plataforma con su comisión de DepaYa y lo que corresponde al propietario. El reporte CSV respeta los filtros.</p>
       </div>

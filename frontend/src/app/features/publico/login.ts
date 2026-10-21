@@ -21,14 +21,15 @@ import { aplicarErroresServidor } from '../../shared/formularios';
     <div class="auth">
       <section class="promo" aria-hidden="true">
         <div class="promo-contenido">
-          <span class="chip">DEPAYA</span>
-          <h1>Tu próximo hogar <span>empieza aquí.</span></h1>
-          <p>Encuentra departamentos, administra tus propiedades y realiza reservas desde una sola plataforma.</p>
+          <p class="eyebrow">Bienvenido a DepaYa</p>
+          <h1>Tu próximo hogar<br /><em>empieza aquí.</em></h1>
+          <p class="promo-texto">Encuentra departamentos, administra tus propiedades y realiza reservas desde una sola plataforma.</p>
           <ul>
             <li><i class="pi pi-check-circle"></i> Reserva en minutos, sin llamadas ni intermediarios.</li>
             <li><i class="pi pi-check-circle"></i> Reembolso de hasta 48 h si cancelas a tiempo.</li>
             <li><i class="pi pi-check-circle"></i> Propietarios: recibes el 90 % de cada reserva pagada.</li>
           </ul>
+          <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1000&q=85" alt="" />
         </div>
       </section>
 
@@ -74,18 +75,18 @@ import { aplicarErroresServidor } from '../../shared/formularios';
   `,
   styles: `
     .auth { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); min-height: calc(100vh - var(--dy-cabecera)); }
-    .promo { position: relative; display: grid; align-items: center; padding: 56px clamp(24px, 5vw, 72px); color: #fff;
-      background: linear-gradient(135deg, rgb(20 22 28 / 82%), rgb(227 28 95 / 70%)), url('https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=1400&q=80') center / cover; }
-    .promo-contenido { max-width: 520px; display: grid; gap: 18px; }
-    .chip { width: fit-content; background: rgb(255 255 255 / 18%); padding: 5px 14px; border-radius: 999px; font-weight: 700; letter-spacing: 0.12em; font-size: 0.78rem; }
-    .promo h1 { color: #fff; font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; }
-    .promo h1 span { display: block; color: #ffd1dc; }
-    .promo p { font-size: 1.05rem; opacity: 0.92; }
-    .promo ul { list-style: none; margin: 8px 0 0; padding: 0; display: grid; gap: 10px; }
+    .promo { display: grid; align-items: center; padding: 56px clamp(24px, 6vw, 96px); background: #e9eee5; }
+    .promo-contenido { max-width: 480px; display: grid; gap: 18px; }
+    .promo h1 { font-size: clamp(2.2rem, 4vw, 3rem); font-weight: 700; letter-spacing: -0.05em; line-height: 1.1; }
+    .promo-texto { color: #66736b; line-height: 1.75; max-width: 40ch; }
+    .promo ul { list-style: none; margin: 4px 0 0; padding: 0; display: grid; gap: 10px; color: #3f5a49; font-size: 0.875rem; }
     .promo li { display: flex; gap: 10px; align-items: center; }
-    .formulario-lado { display: grid; align-content: center; justify-items: center; gap: 16px; padding: 40px 20px; }
-    .formulario-lado > * { width: min(100%, 440px); }
-    .tarjeta h2 { font-size: 1.5rem; }
+    .promo li i { color: var(--dy-musgo); }
+    .promo img { width: 100%; height: 220px; object-fit: cover; border-radius: 16px; margin-top: 8px; }
+    .formulario-lado { display: grid; align-content: center; justify-items: center; gap: 16px; padding: 40px 20px; background: #f7f7f1; }
+    .formulario-lado > * { width: min(100%, 460px); }
+    .formulario-lado .tarjeta { border-radius: 18px; padding: 34px; box-shadow: 0 15px 45px rgb(38 61 43 / 6%); }
+    .tarjeta h2 { font-size: 1.75rem; font-weight: 800; letter-spacing: -0.04em; }
     .registro { text-align: center; color: var(--dy-apagado); }
     .ejemplos { display: grid; gap: 8px; }
     @media (max-width: 880px) { .auth { grid-template-columns: 1fr; } .promo { display: none; } }

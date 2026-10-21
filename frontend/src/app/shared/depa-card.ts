@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Departamento } from '../core/models/api.models';
 
-/** Tarjeta del catálogo. Si hay fechas buscadas, las lleva al detalle para dejar el calendario ya elegido. */
+// Tarjeta del catálogo; si hay fechas buscadas, las lleva al detalle.
 @Component({
   selector: 'app-depa-card',
   imports: [RouterLink, CurrencyPipe],
@@ -18,9 +18,9 @@ import { Departamento } from '../core/models/api.models';
         <div class="ubicacion"><i class="pi pi-map-marker" aria-hidden="true"></i> {{ depa().distrito }}</div>
         <h3 class="titulo">{{ depa().titulo }}</h3>
         <ul class="datos" aria-label="Características">
-          <li><i class="pi pi-users" aria-hidden="true"></i> {{ depa().capacidadPersonas }} huésp.</li>
           <li><i class="pi pi-th-large" aria-hidden="true"></i> {{ depa().habitaciones }} hab.</li>
           <li><i class="pi pi-bookmark" aria-hidden="true"></i> {{ depa().banos }} baños</li>
+          <li><i class="pi pi-users" aria-hidden="true"></i> {{ depa().capacidadPersonas }} huésp.</li>
         </ul>
         <div class="extras">
           @if (depa().tieneWifi) {
@@ -33,38 +33,43 @@ import { Departamento } from '../core/models/api.models';
             <span class="extra" title="Admite mascotas"><i class="pi pi-heart" aria-hidden="true"></i> Mascotas</span>
           }
         </div>
-        <div class="precio"><strong>{{ depa().precioNoche | currency: 'PEN' : 'symbol' : '1.0-2' }}</strong> <span>/ noche</span></div>
+        <div class="precio">
+          <span><b>{{ depa().precioNoche | currency: 'PEN' : 'symbol' : '1.0-2' }}</b> <small>/ noche</small></span>
+          <span class="flecha" aria-hidden="true"><i class="pi pi-arrow-right"></i></span>
+        </div>
       </div>
     </a>
   `,
   styles: `
-    .card { display: grid; grid-template-rows: auto 1fr; height: 100%; background: #fff; border: 1px solid var(--dy-borde); border-radius: 18px; overflow: hidden; box-shadow: var(--dy-sombra); transition: transform 0.18s, box-shadow 0.18s; }
-    .card:hover { transform: translateY(-3px); box-shadow: var(--dy-sombra-fuerte); }
-    .foto { position: relative; aspect-ratio: 4 / 3; background: #e5e7eb; overflow: hidden; }
-    .foto img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.35s; }
+    .card { display: grid; grid-template-rows: auto 1fr; height: 100%; background: #fff; border: 1px solid #eeeee8; border-radius: 15px; overflow: hidden; transition: transform 0.2s, box-shadow 0.2s; }
+    .card:hover { transform: translateY(-4px); box-shadow: 0 14px 35px rgb(32 61 42 / 10%); }
+    .foto { position: relative; height: 205px; background: #e8ebe4; overflow: hidden; }
+    .foto img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; }
     .card:hover .foto img { transform: scale(1.04); }
-    .categoria { position: absolute; top: 12px; left: 12px; background: rgb(255 255 255 / 94%); color: var(--dy-tinta); font-size: 0.75rem; font-weight: 650; padding: 4px 10px; border-radius: 999px; }
-    .cuerpo { padding: 14px 16px 16px; display: grid; gap: 8px; align-content: start; }
-    .ubicacion { color: var(--dy-apagado); font-size: 0.82rem; display: flex; gap: 6px; align-items: center; }
-    .titulo { font-size: 1.02rem; font-weight: 700; line-height: 1.3; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; min-height: 2.6em; }
-    .datos { list-style: none; margin: 0; padding: 0; display: flex; gap: 14px; flex-wrap: wrap; color: var(--dy-tinta-suave); font-size: 0.85rem; }
-    .datos li { display: flex; gap: 5px; align-items: center; }
+    .categoria { position: absolute; bottom: 11px; left: 12px; background: #fffdf4; color: #5b705d; font-size: 0.66rem; font-weight: 700; padding: 6px 9px; border-radius: 5px; letter-spacing: 0.02em; }
+    .cuerpo { padding: 16px 16px 15px; display: grid; gap: 9px; align-content: start; }
+    .ubicacion { display: flex; gap: 5px; align-items: center; color: #8b958c; font-size: 0.72rem; }
+    .titulo { font-size: 0.95rem; font-weight: 800; line-height: 1.4; color: #263d31; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; min-height: 2.8em; }
+    .datos { list-style: none; margin: 0; padding: 0; display: flex; gap: 12px; flex-wrap: wrap; color: #6c7a6f; font-size: 0.72rem; }
+    .datos li { display: inline-flex; gap: 5px; align-items: center; }
     .extras { display: flex; gap: 6px; flex-wrap: wrap; min-height: 26px; }
-    .extra { background: #f3f4f6; color: #374151; font-size: 0.75rem; padding: 3px 9px; border-radius: 999px; display: inline-flex; gap: 5px; align-items: center; }
-    .precio { margin-top: 2px; color: var(--dy-apagado); font-size: 0.85rem; }
-    .precio strong { color: var(--dy-tinta); font-size: 1.18rem; }
+    .extra { background: #f3f5f0; color: #4b5d52; font-size: 0.7rem; padding: 3px 9px; border-radius: 999px; display: inline-flex; gap: 5px; align-items: center; }
+    .precio { border-top: 1px solid #eff0eb; margin-top: 2px; padding-top: 13px; display: flex; align-items: center; justify-content: space-between; }
+    .precio b { font-family: var(--dy-fuente-titulos); color: #224332; font-size: 1.1rem; font-weight: 800; }
+    .precio small { color: #8b958c; font-size: 0.7rem; }
+    .flecha { width: 31px; height: 31px; border: 1px solid #e3e9df; border-radius: 50%; display: grid; place-items: center; color: #426a4a; font-size: 0.8rem; transition: background 0.2s, color 0.2s; }
+    .card:hover .flecha { background: var(--dy-primario); color: #fff; border-color: var(--dy-primario); }
   `,
 })
 export class DepaCard {
   readonly depa = input.required<Departamento>();
-  /** Query params (ingreso/salida) que se pasan al detalle. */
   readonly fechas = input<Record<string, string> | null>(null);
 
   protected sinFoto(evento: Event): void {
     (evento.target as HTMLImageElement).src =
       'data:image/svg+xml;utf8,' +
       encodeURIComponent(
-        '<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300"><rect width="400" height="300" fill="#e5e7eb"/><text x="200" y="158" font-family="Arial" font-size="18" fill="#9ca3af" text-anchor="middle">Sin foto</text></svg>',
+        '<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300"><rect width="400" height="300" fill="#e8ebe4"/><text x="200" y="158" font-family="Arial" font-size="18" fill="#8a958c" text-anchor="middle">Sin foto</text></svg>',
       );
   }
 }

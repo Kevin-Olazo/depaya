@@ -49,6 +49,7 @@ import { Vacio } from '../../shared/vacio';
   template: `
     <header class="encabezado-pagina">
       <div>
+        <p class="eyebrow">Administración</p>
         <h1>Reservas</h1>
         <p>Todas las reservas de la plataforma. El reporte CSV respeta los filtros que apliques.</p>
       </div>

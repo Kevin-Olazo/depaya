@@ -28,7 +28,8 @@ import { Vacio } from '../../shared/vacio';
   template: `
     <header class="encabezado-pagina">
       <div>
-        <h1>Mis ingresos</h1>
+        <p class="eyebrow">Panel propietario</p>
+        <h1>Mis <em>ingresos</em></h1>
         <p>Lo que generan tus departamentos. Solo cuentan los pagos <strong>completados</strong>: DepaYa retiene una comisión y el resto es tuyo.</p>
       </div>
     </header>
@@ -38,7 +39,7 @@ import { Vacio } from '../../shared/vacio';
         <app-kpi etiqueta="Ingreso bruto" [valor]="(r.ingresoBruto | currency: 'PEN' : 'symbol' : '1.2-2') ?? ''" [detalle]="r.pagosCompletados + ' pago(s) completado(s)'" icono="pi-wallet" tono="azul" />
         <app-kpi [etiqueta]="'Comisión de DepaYa (' + r.porcentajeComision + ' %)'" [valor]="(r.comisionDepaya | currency: 'PEN' : 'symbol' : '1.2-2') ?? ''" icono="pi-percentage" tono="ambar" />
         <app-kpi [etiqueta]="'Ingreso neto (' + (100 - r.porcentajeComision) + ' %)'" [valor]="(r.ingresoNeto | currency: 'PEN' : 'symbol' : '1.2-2') ?? ''" detalle="Lo que recibes" icono="pi-money-bill" tono="verde" />
-        <app-kpi etiqueta="Reembolsos pendientes" [valor]="r.reembolsosPendientes" detalle="Esperan confirmación del admin" icono="pi-replay" tono="coral" />
+        <app-kpi etiqueta="Reembolsos pendientes" [valor]="r.reembolsosPendientes" detalle="Esperan confirmación del admin" icono="pi-replay" tono="marca" />
       } @else {
         @for (i of [1, 2, 3, 4]; track i) {
           <p-skeleton height="86px" borderRadius="16px" />

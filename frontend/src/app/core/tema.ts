@@ -2,35 +2,68 @@ import { definePreset } from '@primeuix/themes';
 import Aura from '@primeuix/themes/aura';
 import type { Translation } from 'primeng/api';
 
-/** Aura con el coral de DepaYa como color primario. El botón usa la tonalidad 600 para tener buen contraste con el texto blanco. */
+// Aura con la paleta verde salvia de DepaYa.
 export const DepaYaPreset = definePreset(Aura, {
+  primitive: {
+    borderRadius: { md: '10px', lg: '12px', xl: '18px' },
+  },
   semantic: {
     primary: {
-      50: '#fff1f3',
-      100: '#ffe0e6',
-      200: '#ffc7d2',
-      300: '#ff9db1',
-      400: '#ff6a86',
-      500: '#ff385c',
-      600: '#e31c5f',
-      700: '#c0134f',
-      800: '#9f1448',
-      900: '#86143f',
-      950: '#4b0620',
+      50: '#f3f7f3',
+      100: '#e7efe8',
+      200: '#cfe0d2',
+      300: '#a9c6ae',
+      400: '#789c74',
+      500: '#4e805d',
+      600: '#2a624e',
+      700: '#1d4a3b',
+      800: '#173d32',
+      900: '#12302a',
+      950: '#0a1c17',
+    },
+    formField: {
+      focusRing: { width: '3px', style: 'solid', color: '{primary.100}', offset: '0', shadow: 'none' },
     },
     colorScheme: {
       light: {
+        surface: {
+          0: '#ffffff',
+          50: '#faf9f6',
+          100: '#f3f5f0',
+          200: '#e9ede6',
+          300: '#dfe5dc',
+          400: '#b3bdb5',
+          500: '#7d8a80',
+          600: '#5f6d64',
+          700: '#3f5047',
+          800: '#2b3f36',
+          900: '#20342f',
+          950: '#122019',
+        },
         primary: {
-          color: '{primary.600}',
+          color: '{primary.700}',
           contrastColor: '#ffffff',
-          hoverColor: '{primary.700}',
+          hoverColor: '{primary.600}',
           activeColor: '{primary.800}',
         },
         highlight: {
-          background: '{primary.50}',
-          focusBackground: '{primary.100}',
+          background: '{primary.100}',
+          focusBackground: '{primary.200}',
           color: '{primary.700}',
           focusColor: '{primary.800}',
+        },
+        formField: {
+          borderColor: '{surface.300}',
+          hoverBorderColor: '#c3cec5',
+          focusBorderColor: '{primary.400}',
+          color: '{surface.900}',
+          placeholderColor: '{surface.500}',
+        },
+        text: {
+          color: '{surface.900}',
+          hoverColor: '{primary.800}',
+          mutedColor: '#66736b',
+          hoverMutedColor: '{surface.700}',
         },
       },
     },

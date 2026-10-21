@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 
-export type TonoKpi = 'coral' | 'azul' | 'verde' | 'ambar' | 'violeta' | 'gris';
+export type TonoKpi = 'marca' | 'azul' | 'verde' | 'ambar' | 'violeta' | 'terracota' | 'gris';
 
-/** Tarjeta de indicador (dashboard, resúmenes). */
+// Tarjeta de indicador (dashboard y resúmenes).
 @Component({
   selector: 'app-kpi',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -19,18 +19,20 @@ export type TonoKpi = 'coral' | 'azul' | 'verde' | 'ambar' | 'violeta' | 'gris';
     </article>
   `,
   styles: `
-    .kpi { display: flex; gap: 12px; align-items: center; background: #fff; border: 1px solid var(--dy-borde); border-radius: var(--dy-radio); padding: 16px; box-shadow: var(--dy-sombra); height: 100%; }
+    .kpi { display: flex; gap: 13px; align-items: center; background: #fff; border: 1px solid #e9ede6; border-radius: 14px; padding: 17px 16px; height: 100%; transition: box-shadow 0.2s, transform 0.2s; }
+    .kpi:hover { box-shadow: 0 10px 28px rgb(32 61 42 / 8%); transform: translateY(-2px); }
     .kpi-icono { flex: none; display: grid; place-items: center; width: 42px; height: 42px; border-radius: 13px; font-size: 1.1rem; background: var(--fondo); color: var(--color); }
     .kpi-texto { display: grid; gap: 1px; min-width: 0; }
-    .kpi-etiqueta { color: var(--dy-apagado); font-size: 0.8rem; font-weight: 600; }
-    .kpi-valor { font-size: 1.35rem; line-height: 1.2; font-weight: 750; font-variant-numeric: tabular-nums; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .kpi-detalle { color: var(--dy-apagado); font-size: 0.78rem; }
-    [data-tono='coral'] { --fondo: #fff1f3; --color: #c0134f; }
-    [data-tono='azul'] { --fondo: #eff6ff; --color: #1d4ed8; }
-    [data-tono='verde'] { --fondo: #f0fdf4; --color: #15803d; }
-    [data-tono='ambar'] { --fondo: #fffbeb; --color: #b45309; }
-    [data-tono='violeta'] { --fondo: #f5f3ff; --color: #6d28d9; }
-    [data-tono='gris'] { --fondo: #f3f4f6; --color: #4b5563; }
+    .kpi-etiqueta { color: var(--dy-apagado); font-size: 0.78rem; font-weight: 600; }
+    .kpi-valor { font-family: var(--dy-fuente-titulos); font-size: 1.4rem; line-height: 1.2; font-weight: 800; letter-spacing: -0.03em; color: #274a36; font-variant-numeric: tabular-nums; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .kpi-detalle { color: var(--dy-apagado); font-size: 0.75rem; }
+    [data-tono='marca'] { --fondo: #e7efe8; --color: #1d4a3b; }
+    [data-tono='verde'] { --fondo: #e9f2e8; --color: #3a7d4f; }
+    [data-tono='azul'] { --fondo: #e4eef3; --color: #3d6a82; }
+    [data-tono='ambar'] { --fondo: #f7ecd3; --color: #94681d; }
+    [data-tono='violeta'] { --fondo: #ece8f3; --color: #66578b; }
+    [data-tono='terracota'] { --fondo: #f7e8e5; --color: #a8544c; }
+    [data-tono='gris'] { --fondo: #eff2ed; --color: #55655b; }
   `,
 })
 export class Kpi {
@@ -38,5 +40,5 @@ export class Kpi {
   readonly valor = input.required<string | number>();
   readonly detalle = input<string>('');
   readonly icono = input('pi-chart-bar');
-  readonly tono = input<TonoKpi>('coral');
+  readonly tono = input<TonoKpi>('marca');
 }

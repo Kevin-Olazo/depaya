@@ -9,8 +9,11 @@ import { Sesion } from '../core/services/sesion';
   template: `
     <footer class="pie">
       <div class="contenedor rejilla">
-        <div class="marca">
-          <h2>DepaYa</h2>
+        <div class="marca-pie">
+          <a routerLink="/" class="marca" aria-label="DepaYa, ir al inicio">
+            <span class="marca-icono" aria-hidden="true"><i class="pi pi-building"></i></span>
+            <span class="marca-texto">Depa<span class="ligera">Ya</span><small>ENCUENTRA TU ESPACIO</small></span>
+          </a>
           <p>Transformando la manera de alquilar y encontrar tu espacio ideal en Perú.</p>
         </div>
         <nav aria-label="Explorar">
@@ -34,19 +37,26 @@ import { Sesion } from '../core/services/sesion';
           <p>Reembolso de hasta 48 h si cancelas con 1 día o más de anticipación. Pagos simulados: nunca pedimos datos reales de tarjeta.</p>
         </div>
       </div>
-      <div class="contenedor legal">© {{ anio }} DepaYa · Proyecto académico — Desarrollo de Servicios Web II, Cibertec.</div>
+      <div class="contenedor legal">
+        <span>Tu lugar, tu historia. © {{ anio }} DepaYa</span>
+        <span>Proyecto académico — Desarrollo de Servicios Web II, Cibertec.</span>
+      </div>
     </footer>
   `,
   styles: `
-    .pie { background: #14161c; color: #cbd0d9; padding: 44px 0 20px; margin-top: 40px; }
-    .rejilla { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1.4fr; gap: 32px; padding-bottom: 28px; }
-    h2 { color: #fff; font-size: 1.5rem; margin-bottom: 10px; }
-    h3 { color: #fff; font-size: 0.95rem; margin-bottom: 12px; }
-    nav { display: grid; gap: 8px; align-content: start; }
-    a { color: #cbd0d9; font-size: 0.92rem; }
-    a:hover { color: #fff; text-decoration: underline; }
-    p { font-size: 0.92rem; line-height: 1.6; max-width: 36ch; }
-    .legal { border-top: 1px solid #2a2e39; padding-top: 18px; font-size: 0.82rem; color: #8b92a1; }
+    .pie { background: #fff; border-top: 1px solid #eeeee8; padding: 48px 0 22px; margin-top: 8px; color: var(--dy-apagado); }
+    .rejilla { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1.4fr; gap: 36px; padding-bottom: 30px; }
+    .marca { display: inline-flex; align-items: center; gap: 10px; color: var(--dy-marca); margin-bottom: 14px; }
+    .marca-icono { display: grid; place-items: center; width: 36px; height: 36px; background: var(--dy-menta); border-radius: 12px; color: var(--dy-primario); }
+    .marca-texto { font-family: var(--dy-fuente-titulos); font-size: 1.25rem; font-weight: 800; letter-spacing: -0.06em; line-height: 1; }
+    .marca-texto .ligera { color: var(--dy-salvia); }
+    .marca-texto small { display: block; font: 700 0.46rem 'DM Sans', sans-serif; letter-spacing: 0.18em; color: #7d8a80; margin-top: 4px; }
+    h3 { font-size: 0.72rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.12em; color: #64856a; margin-bottom: 14px; font-family: 'DM Sans', sans-serif; }
+    nav { display: grid; gap: 9px; align-content: start; }
+    nav a { font-size: 0.875rem; color: var(--dy-tinta-suave); }
+    nav a:hover { color: var(--dy-musgo); text-decoration: underline; }
+    p { font-size: 0.875rem; line-height: 1.7; max-width: 38ch; }
+    .legal { border-top: 1px solid #eeeee8; padding-top: 18px; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; font-size: 0.78rem; }
     @media (max-width: 880px) { .rejilla { grid-template-columns: 1fr 1fr; } }
     @media (max-width: 520px) { .rejilla { grid-template-columns: 1fr; } }
   `,

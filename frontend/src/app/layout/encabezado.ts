@@ -23,11 +23,8 @@ interface Enlace {
     <header class="cabecera">
       <div class="contenedor barra">
         <a routerLink="/" class="marca" aria-label="DepaYa, ir al inicio">
-          <svg viewBox="0 0 64 64" width="34" height="34" aria-hidden="true">
-            <rect width="64" height="64" rx="16" fill="#e31c5f" />
-            <path d="M32 14 12 31h6v17h10V38h8v10h10V31h6L32 14Z" fill="#fff" />
-          </svg>
-          <span>DepaYa</span>
+          <span class="marca-icono" aria-hidden="true"><i class="pi pi-building"></i></span>
+          <span class="marca-texto">Depa<span class="ligera">Ya</span><small>ENCUENTRA TU ESPACIO</small></span>
         </a>
 
         <nav class="enlaces" aria-label="Navegación principal">
@@ -49,7 +46,7 @@ interface Enlace {
             <p-menu #menu [model]="itemsMenu()" [popup]="true" appendTo="body" />
           } @else {
             <p-button label="Iniciar sesión" [text]="true" severity="secondary" routerLink="/login" class="oculto-movil" />
-            <p-button label="Registrarse" routerLink="/registro" />
+            <p-button label="Registrarse" icon="pi pi-arrow-right" iconPos="right" routerLink="/registro" />
           }
           <button type="button" class="hamburguesa" (click)="movil.set(true)" aria-label="Abrir menú de navegación">
             <i class="pi pi-bars" aria-hidden="true"></i>
@@ -83,28 +80,34 @@ interface Enlace {
     </p-drawer>
   `,
   styles: `
-    .cabecera { position: sticky; top: 0; z-index: 100; background: rgb(255 255 255 / 92%); backdrop-filter: saturate(160%) blur(10px); border-bottom: 1px solid var(--dy-borde); }
-    .barra { height: var(--dy-cabecera); display: flex; align-items: center; gap: 24px; }
-    .marca { display: flex; align-items: center; gap: 10px; font-size: 1.4rem; font-weight: 800; letter-spacing: -0.02em; color: var(--dy-coral); }
-    .enlaces { display: flex; gap: 4px; margin-left: 8px; flex: 1; }
-    .enlaces a { padding: 8px 14px; border-radius: 999px; font-weight: 600; color: var(--dy-tinta-suave); transition: background 0.15s, color 0.15s; }
-    .enlaces a:hover { background: #f3f4f6; color: var(--dy-tinta); }
-    .enlaces a.activo { background: #fff1f3; color: var(--dy-coral); }
-    .acciones { display: flex; align-items: center; gap: 8px; margin-left: auto; }
-    .usuario { display: flex; align-items: center; gap: 10px; border: 1px solid var(--dy-borde); background: #fff; padding: 5px 12px 5px 6px; border-radius: 999px; cursor: pointer; font: inherit; color: inherit; }
+    :host { display: contents; }
+    .cabecera { position: sticky; top: 0; z-index: 100; background: #fff; border-bottom: 1px solid #eeeee8; }
+    .barra { height: var(--dy-cabecera); display: flex; align-items: center; gap: 28px; }
+    .marca { display: flex; align-items: center; gap: 10px; color: var(--dy-marca); white-space: nowrap; }
+    .marca-icono { display: grid; place-items: center; width: 40px; height: 40px; background: var(--dy-menta); border-radius: 13px; color: var(--dy-primario); font-size: 1.15rem; }
+    .marca-texto { font-family: var(--dy-fuente-titulos); font-size: 1.4rem; font-weight: 800; letter-spacing: -0.06em; line-height: 1; }
+    .marca-texto .ligera { color: var(--dy-salvia); }
+    .marca-texto small { display: block; font: 700 0.5rem 'DM Sans', sans-serif; letter-spacing: 0.18em; color: #7d8a80; margin-top: 4px; }
+    .enlaces { display: flex; gap: 28px; margin-left: 12px; flex: 1; }
+    .enlaces a { padding: 8px 0; border-bottom: 2px solid transparent; font-size: 0.875rem; font-weight: 600; color: #53615a; transition: color 0.15s, border-color 0.15s; }
+    .enlaces a:hover { color: var(--dy-musgo); }
+    .enlaces a.activo { color: var(--dy-marca); font-weight: 700; border-bottom-color: var(--dy-salvia); }
+    .acciones { display: flex; align-items: center; gap: 10px; margin-left: auto; }
+    .usuario { display: flex; align-items: center; gap: 10px; border: 1px solid #e3e9e3; background: #fff; padding: 5px 14px 5px 6px; border-radius: 30px; cursor: pointer; font: inherit; color: #315441; transition: box-shadow 0.15s; }
     .usuario:hover { box-shadow: var(--dy-sombra); }
     .usuario-texto { display: grid; text-align: left; line-height: 1.15; max-width: 170px; }
-    .usuario-texto strong { font-size: 0.85rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-    .usuario-texto small { color: var(--dy-apagado); font-size: 0.72rem; }
-    .avatar { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; background: var(--dy-coral); color: #fff; font-weight: 700; font-size: 0.8rem; flex: none; }
-    .hamburguesa { display: none; width: 42px; height: 42px; border-radius: 12px; border: 1px solid var(--dy-borde); background: #fff; cursor: pointer; font-size: 1.1rem; }
+    .usuario-texto strong { font-size: 0.8125rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .usuario-texto small { color: var(--dy-apagado); font-size: 0.7rem; }
+    .avatar { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; background: #dce8d7; color: #315440; font-weight: 800; font-size: 0.78rem; flex: none; }
+    .hamburguesa { display: none; width: 42px; height: 42px; border-radius: 12px; border: 1px solid #e3e9e3; background: #fff; cursor: pointer; font-size: 1.1rem; color: var(--dy-marca); }
     .drawer-nav { display: grid; gap: 4px; }
     .drawer-nav a, .drawer-nav button { display: flex; gap: 12px; align-items: center; padding: 12px 10px; border-radius: 12px; font: inherit; font-weight: 600; background: none; border: 0; text-align: left; cursor: pointer; color: var(--dy-tinta); }
-    .drawer-nav a:hover, .drawer-nav button:hover { background: #f3f4f6; }
+    .drawer-nav a:hover, .drawer-nav button:hover { background: var(--dy-menta-clara); color: var(--dy-primario); }
     .drawer-usuario { display: flex; gap: 12px; align-items: center; padding: 6px 10px 16px; border-bottom: 1px solid var(--dy-borde); margin-bottom: 8px; }
     .drawer-usuario div { display: grid; min-width: 0; }
     .drawer-usuario small { color: var(--dy-apagado); overflow: hidden; text-overflow: ellipsis; }
     @media (max-width: 880px) {
+      .barra { gap: 12px; }
       .enlaces, .usuario-texto, .usuario > .pi, .oculto-movil { display: none; }
       .usuario { padding: 3px; }
       .hamburguesa { display: grid; place-items: center; }

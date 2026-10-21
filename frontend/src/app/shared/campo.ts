@@ -28,7 +28,7 @@ import { mensajeControl } from './formularios';
     </div>
   `,
   styles: `
-    .obligatorio { color: var(--dy-coral); margin-left: 2px; }
+    .obligatorio { color: var(--dy-primario); margin-left: 2px; }
   `,
 })
 export class Campo {

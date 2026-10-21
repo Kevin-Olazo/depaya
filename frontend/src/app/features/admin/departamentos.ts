@@ -45,6 +45,7 @@ import { Vacio } from '../../shared/vacio';
   template: `
     <header class="encabezado-pagina">
       <div>
+        <p class="eyebrow">Administración</p>
         <h1>Departamentos</h1>
         <p>Todos los departamentos de la plataforma, en cualquier estado.</p>
       </div>

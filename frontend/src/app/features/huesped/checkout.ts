@@ -48,6 +48,7 @@ type Paso = 1 | 2 | 3;
     <div class="contenedor pagina">
       <header class="encabezado-pagina">
         <div>
+          <p class="eyebrow">Reserva segura</p>
           <h1>{{ paso() === 3 ? '¡Reserva confirmada!' : 'Reserva y pago' }}</h1>
           <p>{{ subtitulo() }}</p>
         </div>
@@ -207,33 +208,33 @@ type Paso = 1 | 2 | 3;
   styles: `
     .pasos { list-style: none; margin: 0; padding: 0; display: flex; gap: 8px; flex-wrap: wrap; }
     .pasos li { display: flex; align-items: center; gap: 10px; padding: 8px 16px 8px 8px; border-radius: 999px; background: #fff; border: 1px solid var(--dy-borde); color: var(--dy-apagado); font-weight: 600; }
-    .pasos .numero { display: grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; background: #f3f4f6; font-size: 0.85rem; }
-    .pasos li.activo { color: var(--dy-tinta); border-color: var(--dy-coral); }
-    .pasos li.activo .numero { background: var(--dy-coral); color: #fff; }
-    .pasos li.hecho .numero { background: #15803d; color: #fff; }
+    .pasos .numero { display: grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; background: #eff2ed; font-size: 0.85rem; }
+    .pasos li.activo { color: var(--dy-tinta); border-color: var(--dy-primario); }
+    .pasos li.activo .numero { background: var(--dy-primario); color: #fff; }
+    .pasos li.hecho .numero { background: #3a7d4f; color: #fff; }
     .columnas { display: grid; grid-template-columns: minmax(0, 1fr) 380px; gap: 24px; align-items: start; }
     .principal { min-width: 0; }
     .tarjeta h2 { font-size: 1.2rem; }
     .corto { max-width: 280px; }
     .dia { display: inline-grid; place-items: center; width: 100%; height: 100%; }
-    .dia.ocupado { color: #b42318; text-decoration: line-through; background: #fef2f2; border-radius: 50%; }
+    .dia.ocupado { color: #a8544c; text-decoration: line-through; background: #f7e8e5; border-radius: 50%; }
     :host ::ng-deep .p-datepicker-inline { width: 100%; max-width: 640px; }
     .metodos { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 12px; }
     .metodo { position: relative; display: flex; align-items: center; gap: 14px; padding: 16px; border: 2px solid var(--dy-borde); border-radius: 14px; cursor: pointer; background: #fff; transition: border-color 0.15s, background 0.15s; }
-    .metodo:hover { border-color: #d1d5db; }
+    .metodo:hover { border-color: #cfd7d0; }
     .metodo input { position: absolute; opacity: 0; inset: 0; cursor: pointer; }
-    .metodo:has(input:focus-visible) { outline: 3px solid color-mix(in srgb, var(--dy-coral) 55%, white); outline-offset: 2px; }
+    .metodo:has(input:focus-visible) { outline: 3px solid color-mix(in srgb, var(--dy-primario) 55%, white); outline-offset: 2px; }
     .metodo > i:first-of-type { font-size: 1.5rem; color: var(--dy-tinta-suave); }
     .metodo span { display: grid; flex: 1; }
     .metodo small { color: var(--dy-apagado); }
-    .metodo .marca { color: var(--dy-coral); font-size: 1.3rem; opacity: 0; }
-    .metodo.elegido { border-color: var(--dy-coral); background: #fff7f9; }
+    .metodo .marca { color: var(--dy-primario); font-size: 1.3rem; opacity: 0; }
+    .metodo.elegido { border-color: var(--dy-primario); background: #f3f7f3; }
     .metodo.elegido .marca { opacity: 1; }
-    .pasarela { border: 1px dashed #cbd5e1; border-radius: 14px; padding: 18px; display: grid; gap: 10px; background: #f8fafc; }
+    .pasarela { border: 1px dashed #c9d6cb; border-radius: 14px; padding: 18px; display: grid; gap: 10px; background: #f7f9f5; }
     .pasarela-cabecera { font-weight: 700; color: var(--dy-tinta-suave); display: flex; gap: 8px; align-items: center; }
     .monto { font-size: 2rem; font-weight: 800; }
     .exito { text-align: center; display: grid; gap: 12px; justify-items: center; padding: 36px 24px; }
-    .check { display: grid; place-items: center; width: 70px; height: 70px; border-radius: 50%; background: #dcfce7; color: #15803d; font-size: 1.8rem; }
+    .check { display: grid; place-items: center; width: 70px; height: 70px; border-radius: 50%; background: #e7efe8; color: #1d4a3b; font-size: 1.8rem; }
     .detalle { margin: 6px 0; display: grid; gap: 6px; width: min(100%, 420px); }
     .detalle div { display: flex; justify-content: space-between; gap: 16px; padding: 8px 0; border-bottom: 1px solid var(--dy-borde); }
     .detalle dt { color: var(--dy-apagado); }

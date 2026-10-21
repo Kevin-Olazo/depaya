@@ -108,12 +108,12 @@ import { aplicarErroresServidor } from '../../shared/formularios';
     .contenedor { max-width: 860px; }
     .perfil { display: flex; gap: 18px; align-items: center; }
     .perfil h1 { font-size: 1.5rem; }
-    .avatar { display: grid; place-items: center; width: 68px; height: 68px; border-radius: 50%; background: var(--dy-coral); color: #fff; font-weight: 800; font-size: 1.4rem; flex: none; }
-    .insignia { background: #f0fdf4; color: #15803d; font-weight: 700; padding: 4px 12px; border-radius: 999px; font-size: 0.82rem; }
-    .insignia.mal { background: #fef2f2; color: #b42318; }
+    .avatar { display: grid; place-items: center; width: 68px; height: 68px; border-radius: 50%; background: var(--dy-primario); color: #fff; font-weight: 800; font-size: 1.4rem; flex: none; }
+    .insignia { background: #e9f2e8; color: #2f6149; font-weight: 700; padding: 4px 12px; border-radius: 999px; font-size: 0.82rem; }
+    .insignia.mal { background: #fbeeec; color: #8f3a33; }
     .tarjeta h2 { margin-bottom: 12px; }
-    .peligro { border-color: #fecaca; background: #fffafa; display: grid; gap: 12px; justify-items: start; }
-    .peligro h2 { color: #b42318; margin-bottom: 0; }
+    .peligro { border-color: #f0cdc9; background: #fdf8f7; display: grid; gap: 12px; justify-items: start; }
+    .peligro h2 { color: #8f3a33; margin-bottom: 0; }
   `,
 })
 export class Cuenta {

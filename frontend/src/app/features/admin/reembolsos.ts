@@ -17,7 +17,8 @@ import { Vacio } from '../../shared/vacio';
   template: `
     <header class="encabezado-pagina">
       <div>
-        <h1>Reembolsos pendientes</h1>
+        <p class="eyebrow">Administración</p>
+        <h1>Reembolsos <em>pendientes</em></h1>
         <p>Cuando un huésped cancela una reserva pagada con 1 día o más de anticipación, el reembolso llega aquí con un plazo de <strong>48 horas</strong>.</p>
       </div>
       <p-button label="Actualizar" icon="pi pi-refresh" severity="secondary" [outlined]="true" [loading]="lista.cargando()" (onClick)="lista.cargar()" />
@@ -99,7 +100,7 @@ import { Vacio } from '../../shared/vacio';
     .derecha { text-align: right; }
     .acciones-fila { gap: 6px; }
     .vencido { color: #b42318; font-weight: 700; }
-    .urgente { color: #b45309; font-weight: 700; }
+    .urgente { color: #94681d; font-weight: 700; }
     .normal { color: var(--dy-apagado); }
   `,
 })

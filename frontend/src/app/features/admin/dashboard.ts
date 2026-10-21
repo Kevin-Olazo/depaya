@@ -23,7 +23,7 @@ const OPCIONES_BARRAS_H = {
   ...OPCIONES_EJES,
   indexAxis: 'y' as const,
   scales: {
-    x: { beginAtZero: true, grid: { color: '#eef0f3' }, ticks: { precision: 0, font: { size: 11 } } },
+    x: { beginAtZero: true, grid: { color: '#eef0ea' }, ticks: { precision: 0, font: { size: 11 } } },
     y: { grid: { display: false }, ticks: { font: { size: 11 } } },
   },
 };
@@ -47,7 +47,8 @@ function barras(etiquetas: string[], valores: number[], color: string, nombre: s
   template: `
     <header class="encabezado-pagina">
       <div>
-        <h1>Panel de administración</h1>
+        <p class="eyebrow">Administración</p>
+        <h1>Panel de <em>administración</em></h1>
         <p>Resumen de toda la plataforma. Cada bloque viene de un servicio distinto (usuarios, departamentos, reservas y pagos).</p>
       </div>
       <p-button label="Actualizar" icon="pi pi-refresh" severity="secondary" [outlined]="true" [loading]="cargando()" (onClick)="cargar()" />
@@ -68,7 +69,7 @@ function barras(etiquetas: string[], valores: number[], color: string, nombre: s
       <div class="titulo-bloque"><h2 id="t-usuarios">Usuarios</h2><a class="enlace" routerLink="/admin/usuarios">Gestionar →</a></div>
       <div class="rejilla-kpi">
         @if (usuarios(); as u) {
-          <app-kpi etiqueta="Usuarios registrados" [valor]="u.total" icono="pi-users" tono="coral" />
+          <app-kpi etiqueta="Usuarios registrados" [valor]="u.total" icono="pi-users" tono="marca" />
           <app-kpi etiqueta="Cuentas activas" [valor]="u.activos" icono="pi-user-plus" tono="verde" />
           <app-kpi etiqueta="Cuentas inactivas" [valor]="u.inactivos" icono="pi-user-minus" tono="gris" />
           <app-kpi etiqueta="Propietarios" [valor]="u.porRol['PROPIETARIO']" [detalle]="u.porRol['INQUILINO'] + ' inquilinos · ' + u.porRol['ADMIN'] + ' admin'" icono="pi-building" tono="azul" />
@@ -87,7 +88,7 @@ function barras(etiquetas: string[], valores: number[], color: string, nombre: s
       <div class="titulo-bloque"><h2 id="t-deptos">Departamentos</h2><a class="enlace" routerLink="/admin/departamentos">Gestionar →</a></div>
       <div class="rejilla-kpi">
         @if (deptos(); as d) {
-          <app-kpi etiqueta="Departamentos publicados" [valor]="d.total" icono="pi-building" tono="coral" />
+          <app-kpi etiqueta="Departamentos publicados" [valor]="d.total" icono="pi-building" tono="marca" />
           <app-kpi etiqueta="Propietarios con publicaciones" [valor]="d.propietariosConDepartamentos" icono="pi-users" tono="azul" />
           <app-kpi etiqueta="Precio promedio por noche" [valor]="(d.precioPromedioNoche | currency: 'PEN' : 'symbol' : '1.2-2') ?? ''" icono="pi-tag" tono="ambar" />
           <app-kpi etiqueta="Disponibles" [valor]="d.porEstado['DISPONIBLE']" [detalle]="d.porEstado['INACTIVO'] + ' inactivos'" icono="pi-check-circle" tono="verde" />
@@ -107,7 +108,7 @@ function barras(etiquetas: string[], valores: number[], color: string, nombre: s
       <div class="titulo-bloque"><h2 id="t-reservas">Reservas</h2><a class="enlace" routerLink="/admin/reservas">Ver todas →</a></div>
       <div class="rejilla-kpi">
         @if (reservas(); as r) {
-          <app-kpi etiqueta="Reservas totales" [valor]="r.total" icono="pi-calendar" tono="coral" />
+          <app-kpi etiqueta="Reservas totales" [valor]="r.total" icono="pi-calendar" tono="marca" />
           <app-kpi etiqueta="Valor confirmado" [valor]="(r.valorReservasConfirmadas | currency: 'PEN' : 'symbol' : '1.2-2') ?? ''" [detalle]="r.nochesConfirmadas + ' noches confirmadas'" icono="pi-dollar" tono="verde" />
           <app-kpi etiqueta="Confirmadas" [valor]="r.porEstado['CONFIRMADA']" [detalle]="r.porEstado['PENDIENTE'] + ' pendientes de pago'" icono="pi-check-circle" tono="azul" />
           <app-kpi etiqueta="Reembolsos pendientes" [valor]="r.reembolsosPendientes" icono="pi-replay" tono="ambar" />
@@ -128,7 +129,7 @@ function barras(etiquetas: string[], valores: number[], color: string, nombre: s
       <div class="rejilla-kpi">
         @if (pagos(); as p) {
           <app-kpi etiqueta="Ingresos brutos" [valor]="(p.ingresosBrutos | currency: 'PEN' : 'symbol' : '1.2-2') ?? ''" [detalle]="p.totalPagos + ' pagos registrados'" icono="pi-wallet" tono="azul" />
-          <app-kpi [etiqueta]="'Comisión de DepaYa (' + p.porcentajeComision + ' %)'" [valor]="(p.comisionDepaya | currency: 'PEN' : 'symbol' : '1.2-2') ?? ''" icono="pi-percentage" tono="coral" />
+          <app-kpi [etiqueta]="'Comisión de DepaYa (' + p.porcentajeComision + ' %)'" [valor]="(p.comisionDepaya | currency: 'PEN' : 'symbol' : '1.2-2') ?? ''" icono="pi-percentage" tono="marca" />
           <app-kpi etiqueta="Para propietarios" [valor]="(p.montoPropietarios | currency: 'PEN' : 'symbol' : '1.2-2') ?? ''" [detalle]="'El ' + (100 - p.porcentajeComision) + ' % de cada pago'" icono="pi-money-bill" tono="verde" />
           <app-kpi etiqueta="Reembolsos por decidir" [valor]="p.reembolsosPendientes" [detalle]="(p.montoReembolsosPendientes | currency: 'PEN' : 'symbol' : '1.2-2') ?? ''" icono="pi-replay" tono="ambar" />
         } @else {
@@ -173,7 +174,7 @@ export class Dashboard {
 
   protected readonly registrosMes = computed(() => {
     const m = this.usuarios()?.registrosPorMes ?? [];
-    return barras(m.map((x) => etiquetaMes(x.mes)), m.map((x) => x.total), COLORES.coral, 'Registros');
+    return barras(m.map((x) => etiquetaMes(x.mes)), m.map((x) => x.total), COLORES.marca, 'Registros');
   });
   protected readonly usuariosRol = computed(() => {
     const r = Object.entries(this.usuarios()?.porRol ?? {});
@@ -197,7 +198,7 @@ export class Dashboard {
   });
   protected readonly reservasMes = computed(() => {
     const m = this.reservas()?.reservasPorMes ?? [];
-    return barras(m.map((x) => etiquetaMes(x.mes)), m.map((x) => x.total), COLORES.turquesa, 'Reservas');
+    return barras(m.map((x) => etiquetaMes(x.mes)), m.map((x) => x.total), COLORES.salvia, 'Reservas');
   });
   protected readonly topDistritos = computed(() => {
     const r = Object.entries(this.reservas()?.topDistritos ?? {});

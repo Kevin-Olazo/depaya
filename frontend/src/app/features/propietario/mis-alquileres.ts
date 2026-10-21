@@ -46,14 +46,15 @@ import { Vacio } from '../../shared/vacio';
   template: `
     <header class="encabezado-pagina">
       <div>
-        <h1>Mis alquileres</h1>
+        <p class="eyebrow">Panel propietario</p>
+        <h1>Mis <em>alquileres</em></h1>
         <p>Las reservas que hicieron los huéspedes a tus departamentos.</p>
       </div>
     </header>
 
     <section class="rejilla-kpi" aria-label="Resumen de alquileres">
       @if (resumen(); as r) {
-        <app-kpi etiqueta="Reservas totales" [valor]="r.total" icono="pi-calendar" tono="coral" />
+        <app-kpi etiqueta="Reservas totales" [valor]="r.total" icono="pi-calendar" tono="marca" />
         <app-kpi etiqueta="Pendientes de pago" [valor]="r.pendientes" icono="pi-clock" tono="ambar" />
         <app-kpi etiqueta="Confirmadas" [valor]="r.confirmadas" icono="pi-check-circle" tono="verde" />
         <app-kpi etiqueta="Canceladas" [valor]="r.canceladas" icono="pi-times-circle" tono="gris" />

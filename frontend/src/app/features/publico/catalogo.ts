@@ -69,7 +69,8 @@ function verdadero(p: ParamMap, clave: string): boolean {
     <div class="contenedor pagina">
       <header class="encabezado-pagina">
         <div>
-          <h1>Departamentos disponibles</h1>
+          <p class="eyebrow">Selección DepaYa</p>
+          <h1>Departamentos <em>disponibles</em></h1>
           <p role="status" aria-live="polite">
             @if (cargando()) { Buscando… }
             @else if (resultados(); as r) { {{ r.totalElements }} {{ r.totalElements === 1 ? 'alojamiento encontrado' : 'alojamientos encontrados' }} }
@@ -219,7 +220,7 @@ function verdadero(p: ParamMap, clave: string): boolean {
     .comodidades legend { font-weight: 600; font-size: 0.875rem; padding: 0; margin-bottom: 8px; }
     .interruptor { display: flex; align-items: center; gap: 10px; }
     .interruptor label { display: flex; gap: 8px; align-items: center; cursor: pointer; }
-    .limpiar { background: none; border: 0; color: var(--dy-coral); font: inherit; font-weight: 600; cursor: pointer; display: inline-flex; gap: 6px; align-items: center; padding: 4px; }
+    .limpiar { background: none; border: 0; color: var(--dy-primario); font: inherit; font-weight: 600; cursor: pointer; display: inline-flex; gap: 6px; align-items: center; padding: 4px; }
     .limpiar:hover { text-decoration: underline; }
     p-paginator { display: block; margin-top: 26px; }
     .reintento { margin-top: 14px; }

@@ -1,5 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { ActivatedRoute, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { ROLES } from '../core/models/etiquetas';
+import { Sesion } from '../core/services/sesion';
 
 export interface EnlacePanel {
   etiqueta: string;
@@ -13,7 +15,7 @@ export interface DatosPanel {
   enlaces: EnlacePanel[];
 }
 
-/** Panel con navegación lateral (escritorio) o en pestañas deslizables (móvil). Los enlaces vienen de `route.data`. */
+// Panel con menú lateral (escritorio) o en pestañas deslizables (móvil); los enlaces vienen de route.data.
 @Component({
   selector: 'app-panel-layout',
   imports: [RouterOutlet, RouterLink, RouterLinkActive],
@@ -21,6 +23,11 @@ export interface DatosPanel {
   template: `
     <div class="contenedor panel">
       <aside class="lateral">
+        <div class="usuario-panel">
+          <span class="avatar" aria-hidden="true">{{ sesion.iniciales() }}</span>
+          <b>{{ sesion.nombre() }}</b>
+          <small>{{ rol }}</small>
+        </div>
         <p class="titulo-panel">{{ datos.titulo }}</p>
         <nav [attr.aria-label]="datos.titulo">
           @for (e of datos.enlaces; track e.ruta) {
@@ -35,20 +42,24 @@ export interface DatosPanel {
     </div>
   `,
   styles: `
-    .panel { display: grid; grid-template-columns: 232px minmax(0, 1fr); gap: 28px; padding-block: 28px 72px; align-items: start; }
-    .lateral { position: sticky; top: calc(var(--dy-cabecera) + 18px); background: #fff; border: 1px solid var(--dy-borde); border-radius: var(--dy-radio); padding: 14px; box-shadow: var(--dy-sombra); }
-    .titulo-panel { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--dy-apagado); font-weight: 700; padding: 4px 10px 10px; }
+    .panel { display: grid; grid-template-columns: 240px minmax(0, 1fr); gap: 26px; padding-block: 40px 80px; align-items: start; }
+    .lateral { position: sticky; top: calc(var(--dy-cabecera) + 18px); background: #fff; border: 1px solid #e9ede6; border-radius: 14px; padding: 15px; }
+    .usuario-panel { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 14px 8px 20px; border-bottom: 1px solid #edf0e9; margin-bottom: 12px; }
+    .avatar { display: grid; place-items: center; width: 52px; height: 52px; border-radius: 50%; background: #e8efe5; color: #4f7756; font-family: var(--dy-fuente-titulos); font-weight: 800; margin-bottom: 10px; }
+    .usuario-panel b { font-size: 0.8125rem; color: #304a38; overflow-wrap: anywhere; }
+    .usuario-panel small { font-size: 0.7rem; color: var(--dy-apagado); margin-top: 3px; }
+    .titulo-panel { font-size: 0.66rem; text-transform: uppercase; letter-spacing: 0.14em; color: #7d8a80; font-weight: 800; padding: 4px 10px 8px; }
     nav { display: grid; gap: 3px; }
-    nav a { display: flex; gap: 12px; align-items: center; padding: 10px 12px; border-radius: 12px; font-weight: 600; color: var(--dy-tinta-suave); }
-    nav a:hover { background: #f3f4f6; color: var(--dy-tinta); }
-    nav a.activo { background: #fff1f3; color: var(--dy-coral); }
+    nav a { display: flex; gap: 12px; align-items: center; padding: 11px 12px; border-radius: 9px; font-size: 0.8125rem; font-weight: 600; color: #5d6b62; transition: background 0.15s, color 0.15s; }
+    nav a:hover { background: #f3f7f1; color: #315c3d; }
+    nav a.activo { background: #edf3e9; color: #315c3d; font-weight: 800; }
     .contenido { display: grid; grid-template-columns: minmax(0, 1fr); gap: 22px; min-width: 0; align-content: start; }
     .contenido > router-outlet { display: none; }
     :host ::ng-deep .contenido > :not(router-outlet) { display: grid; gap: 22px; min-width: 0; align-content: start; }
     @media (max-width: 960px) {
-      .panel { grid-template-columns: minmax(0, 1fr); gap: 16px; padding-top: 18px; }
+      .panel { grid-template-columns: minmax(0, 1fr); gap: 16px; padding-top: 22px; }
       .lateral { position: static; padding: 6px; border-radius: 14px; }
-      .titulo-panel { display: none; }
+      .usuario-panel, .titulo-panel { display: none; }
       nav { display: flex; overflow-x: auto; gap: 4px; scrollbar-width: thin; }
       nav a { white-space: nowrap; padding: 9px 14px; }
     }
@@ -56,4 +67,6 @@ export interface DatosPanel {
 })
 export class PanelLayout {
   protected readonly datos = inject(ActivatedRoute).snapshot.data as DatosPanel;
+  protected readonly sesion = inject(Sesion);
+  protected readonly rol = this.sesion.rol() ? ROLES[this.sesion.rol()!].texto : '';
 }

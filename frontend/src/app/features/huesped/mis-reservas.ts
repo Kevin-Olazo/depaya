@@ -55,7 +55,8 @@ import { Vacio } from '../../shared/vacio';
     <div class="contenedor pagina">
       <header class="encabezado-pagina">
         <div>
-          <h1>Mis reservas</h1>
+          <p class="eyebrow">Tu espacio DepaYa</p>
+          <h1>Mis <em>reservas</em></h1>
           <p>Las reservas que hiciste como huésped. Paga las pendientes, edítalas o cancélalas; si cancelas una confirmada con 1 día o más de anticipación, tienes reembolso (plazo de 48 h).</p>
         </div>
         <p-button label="Buscar departamentos" icon="pi pi-search" routerLink="/departamentos" />
@@ -263,7 +264,7 @@ import { Vacio } from '../../shared/vacio';
     .lista-detalle dt { color: var(--dy-apagado); }
     .lista-detalle dd { margin: 0; text-align: right; font-weight: 600; }
     .dia { display: inline-grid; place-items: center; width: 100%; height: 100%; }
-    .dia.ocupado { color: #b42318; text-decoration: line-through; background: #fef2f2; border-radius: 50%; }
+    .dia.ocupado { color: #a8544c; text-decoration: line-through; background: #f7e8e5; border-radius: 50%; }
     .celda-depa { color: inherit; }
     .celda-depa span { display: grid; }
   `,

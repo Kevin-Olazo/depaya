@@ -45,7 +45,8 @@ import { Vacio } from '../../shared/vacio';
     <div class="contenedor pagina">
       <header class="encabezado-pagina">
         <div>
-          <h1>Mis pagos</h1>
+          <p class="eyebrow">Tu espacio DepaYa</p>
+          <h1>Mis <em>pagos</em></h1>
           <p>Los pagos de tus reservas. Los pagos simulados no hacen cargos reales. Si un pago quedó «Procesando», puedes autorizarlo o cancelarlo desde aquí.</p>
         </div>
       </header>
