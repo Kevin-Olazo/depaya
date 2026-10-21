@@ -16,7 +16,10 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 // Pruebas de la capa de datos: insertar, actualizar, eliminar y listar.
-@DataJpaTest
+@DataJpaTest(properties = {
+        "spring.jpa.hibernate.ddl-auto=create-drop",
+        "spring.jpa.properties.hibernate.hbm2ddl.create_namespaces=true"
+})
 class DepartamentoRepositoryTest {
 
     @Autowired

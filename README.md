@@ -16,8 +16,8 @@ Los servicios se registran en Eureka y se llaman entre sí por nombre (`ms-auth`
 ## Cómo arrancar
 
 1. Tener instalado JDK 21 o superior y PostgreSQL.
-2. Crear la base de datos (una sola vez): `CREATE DATABASE depaya;`
-3. Usuario y clave de PostgreSQL: por defecto `postgres` / `postgres`. Si los tuyos son otros, cámbialos en `spring.datasource.*` del `application.properties` de cada `ms-*`.
+2. Crear la base de datos (una sola vez): `CREATE DATABASE depaya;` y cargar las tablas y los datos de ejemplo con `psql -U postgres -d depaya -f sql/depaya.sql` (para empezar de cero, ejecutar antes `sql/reiniciar.sql`). Hibernate no crea tablas (`ddl-auto=validate`): solo comprueba que coincidan con el script.
+3. Usuario y clave de PostgreSQL: se configuran en `spring.datasource.*` del `application.properties` de cada `ms-*` (ahora `postgres` / `defleppard`).
 4. Levantar los 6 proyectos, primero `eureka-server` y luego los demás. Desde IntelliJ (abrir esta carpeta, que detecta los 6 proyectos, y ejecutar cada `*Application`) o por terminal, uno por ventana:
 
 ```bash
@@ -29,7 +29,9 @@ cd ms-pagos && ./mvnw spring-boot:run
 cd api-gateway && ./mvnw spring-boot:run
 ```
 
-(En Windows: `mvnw.cmd spring-boot:run`.) Las tablas y los datos de ejemplo se crean solos al primer arranque. Tras arrancar, espera unos segundos a que los 5 servicios aparezcan en el panel de Eureka.
+(En Windows: `mvnw.cmd spring-boot:run`.) Tras arrancar, espera unos segundos a que los 5 servicios aparezcan en el panel de Eureka.
+
+Frontend: `cd frontend && npm install && npm start` y abrir http://localhost:4200.
 
 ## Probar
 
