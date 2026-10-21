@@ -1,4 +1,4 @@
-# DepaYa – backend (microservicios en Java)
+# DepaYa
 
 Spring Boot 4 · Java 21 · PostgreSQL · Eureka. Todo se consume por el gateway: **http://localhost:8080**
 
@@ -16,8 +16,8 @@ Los servicios se registran en Eureka y se llaman entre sí por nombre (`ms-auth`
 ## Cómo arrancar
 
 1. Tener instalado JDK 21 o superior y PostgreSQL.
-2. Crear la base de datos (una sola vez): `CREATE DATABASE depaya;` y cargar las tablas y los datos de ejemplo con `psql -U postgres -d depaya -f sql/depaya.sql` (para empezar de cero, ejecutar antes `sql/reiniciar.sql`). Hibernate no crea tablas (`ddl-auto=validate`): solo comprueba que coincidan con el script.
-3. Usuario y clave de PostgreSQL: se configuran en `spring.datasource.*` del `application.properties` de cada `ms-*` (ahora `postgres` / `defleppard`).
+2. Crear la base de datos (una sola vez): `CREATE DATABASE depaya;` y cargar las tablas y los datos de ejemplo con `depaya.sql`
+3. Usuario y clave de PostgreSQL: se configuran en `spring.datasource.*` del `application.properties` de cada `ms-*`.
 4. Levantar los 6 proyectos, primero `eureka-server` y luego los demás. Desde IntelliJ (abrir esta carpeta, que detecta los 6 proyectos, y ejecutar cada `*Application`) o por terminal, uno por ventana:
 
 ```bash
@@ -32,11 +32,3 @@ cd api-gateway && ./mvnw spring-boot:run
 (En Windows: `mvnw.cmd spring-boot:run`.) Tras arrancar, espera unos segundos a que los 5 servicios aparezcan en el panel de Eureka.
 
 Frontend: `cd frontend && npm install && npm start` y abrir http://localhost:4200.
-
-## Probar
-
-Abrir `requests.http` en IntelliJ y ejecutar las peticiones de arriba hacia abajo.
-
-Usuarios de ejemplo (clave **123456**): `admin@depaya.com` (ADMIN), `avargas@gmail.com` (PROPIETARIO), `drojas@gmail.com` (INQUILINO).
-
-Pruebas de la capa de datos (no necesitan PostgreSQL): `./mvnw test` en esta carpeta.
